@@ -6,12 +6,12 @@ namespace Advent_of_code_2024
         static void Main()
         {
             string[] strings = GetTextInput();
-            Day4.Run(strings);
+            Day5P1.Run(strings);
         }
 
         static string[] GetTextInput()
         {
-            string filePath = "C:\\Users\\SergiuAtAmbo\\source\\repos\\Advent of code 2024\\Advent of code 2024\\Day4\\Day4.txt";
+            string filePath = "C:\\Users\\SergiuAtAmbo\\source\\repos\\Advent of code 2024\\Advent of code 2024\\Day5\\Day5.txt";
             if (File.Exists(filePath))
             {
                 return File.ReadAllLines(filePath);

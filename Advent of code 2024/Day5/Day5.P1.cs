@@ -29,29 +29,7 @@ namespace Advent_of_code_2024
                     listToCheck.Add(sValue);
                 }
 
-                bool bWasOk = true;
-
-                for (int i = 0; i < listToCheck.Count; i++)
-                {
-                    string sValue = listToCheck[i];
-
-                    if (dictionaryValues.ContainsKey(sValue) == false) continue;
-
-                    string sValues = dictionaryValues[sValue];
-                    for (int ascend = i + 1; ascend < listToCheck.Count; ascend++)
-                    {
-                        if (sValues.Contains(listToCheck[ascend]) == true) continue;
-
-                        bWasOk = false;
-                    }
-
-                    for (int descend = i; descend > -1; descend--)
-                    {
-                        if (sValues.Contains(listToCheck[descend]) == false) continue;
-
-                        bWasOk = false;
-                    }
-                }
+                bool bWasOk = IsListCorrect();
 
                 if (bWasOk == false) continue;
 
@@ -90,6 +68,38 @@ namespace Advent_of_code_2024
                     dictionaryValues.Add(sKey, sValue);
                 }
             }
+        }
+
+        private static bool IsListCorrect()
+        {
+            bool bWasOk = true;
+
+            for (int i = 0; i < listToCheck.Count; i++)
+            {
+                string sValue = listToCheck[i];
+
+                if (dictionaryValues.ContainsKey(sValue) == false) continue;
+
+                string sValues = dictionaryValues[sValue];
+
+                /// Check if wrong numbers are after the Value
+                for (int ascend = i + 1; ascend < listToCheck.Count; ascend++)
+                {
+                    if (sValues.Contains(listToCheck[ascend]) == true) continue;
+
+                    bWasOk = false;
+                }
+
+                /// Check if wrong numbers are not before the Value
+                for (int descend = i; descend > -1; descend--)
+                {
+                    if (sValues.Contains(listToCheck[descend]) == false) continue;
+
+                    bWasOk = false;
+                }
+            }
+
+            return bWasOk;
         }
     }
 }

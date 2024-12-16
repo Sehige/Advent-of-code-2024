@@ -5,8 +5,8 @@ namespace Advent_of_code_2024
     {
         static void Main()
         {
-            string[] strings = GetTextInput("7");
-            Day7.RunP1(strings);
+            string[] strings = GetTextInput("8");
+            Day8.Run(strings);
         }
 
         static string[] GetTextInput(string sDay)

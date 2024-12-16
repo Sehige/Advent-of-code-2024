@@ -15,6 +15,7 @@ namespace Advent_of_code_2024
             int nSum = 0;
             List<string> listWrong = new List<string>();
 
+            /// Generate the list of wrong values
             foreach (string s in sTextInput)
             {
                 if (s.Contains(',') == false) continue;
@@ -40,6 +41,7 @@ namespace Advent_of_code_2024
 
                 listToCheck = new List<string>(sSplit);
 
+                /// Correct the list
                 while (bWrong == true)
                 {
                     for (int j = 0; j < listToCheck.Count; j++)

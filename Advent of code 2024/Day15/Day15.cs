@@ -16,6 +16,7 @@ namespace Advent_of_code_2024
             int robotX = -1;
             int robotY = -1;
 
+            // Initialize the room and find the robot's starting position
             for (int i = 0; i < sRoomInput.Length; i++)
             {
                 string s = sRoomInput[i];
@@ -30,7 +31,7 @@ namespace Advent_of_code_2024
                 }
             }
 
-            Console.WriteLine("Initial Position:" + robotX + "," + robotY);
+            //Console.WriteLine("Initial Position:" + robotX + "," + robotY);
 
             foreach (string sSetOfActions in sInstructions)
             {
@@ -78,6 +79,7 @@ namespace Advent_of_code_2024
 
             float nSum = 0;
 
+            // Calculate the result
             for (int i = 0; i < room.GetLength(0); i++)
             {
                 for(int j = 0; j < room.GetLength(1); j++)
@@ -91,17 +93,29 @@ namespace Advent_of_code_2024
             Console.WriteLine(nSum);
         }
 
+        /// <summary>
+        /// Checks if the robot can move in the specified direction and update the room accordingly
+        /// </summary>
+        /// <param name="room"></param>
+        /// <param name="FromX"></param>
+        /// <param name="FromY"></param>
+        /// <param name="ModifierX"></param>
+        /// <param name="ModifierY"></param>
+        /// <returns></returns>
         public static bool CanMove(ref string[,] room, int FromX, int FromY, int ModifierX, int ModifierY)
         {
             int ToX = FromX + ModifierX;
             int ToY = FromY + ModifierY;
 
+            // Wall
             if (room[ToX, ToY] == "#") return false;
+            // Empty space
             else if (room[ToX, ToY] == ".")
             {
                 (room[FromX, FromY], room[ToX, ToY]) = (room[ToX, ToY], room[FromX, FromY]);
                 return true;
             }
+            // Box
             else if (room[ToX, ToY] == "O")
             {
                 bool bMoved = CanMove(ref room, ToX, ToY, ModifierX, ModifierY);
@@ -114,6 +128,7 @@ namespace Advent_of_code_2024
 
             return false;
         }
+
         public static void Print2DArray(string[,] array)
         {
             int rows = array.GetLength(0);
@@ -128,13 +143,18 @@ namespace Advent_of_code_2024
             }
         }
 
+        /// <summary>
+        /// Split the input in 2(room map and movement actions) by an empty line
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public static (string[] first, string[] second) SplitByEmpty(string[] input)
         {
             int index = Array.IndexOf(input, "");
             if (index == -1)
                 return (input, Array.Empty<string>());
-            var first = input.Take(index).ToArray();
-            var second = input.Skip(index + 1).ToArray();
+            string[]? first = input.Take(index).ToArray();
+            string[]? second = input.Skip(index + 1).ToArray();
             return (first, second);
         }
     }
